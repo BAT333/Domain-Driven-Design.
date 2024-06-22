@@ -1,0 +1,156 @@
+Atacando a complexidade no coração do software
+
+A complexidade que chamamos de acidental, que são as dívidas técnicas que adquirimos ao longo
+do tempo, a dificuldade de implementar coisas no código legado, a dificuldade de infraestrutura,
+frameworks, banco de dados. Isso é uma complexidade acidental.
+
+Mas o ideal é atacarmos a complexidade essencial. Qual é a complexidade essencial? É a
+complexidade de negócio, porque é o motivo real pelo qual alguém vai pagar a você,
+pessoa desenvolvedora, ou a uma empresa, para desenvolver o software para ela. Ela quer
+resolver, ela quer ter o fluxo dela resolvido, o negócio dela ali, da maneira que ela precisa.
+
+
+O que é Linguagem Ubíqua?---------------------------
+
+Linguagem ubíqua pode parecer um termo complexo de se compreender, mas outro termo também
+utilizado para identificar este tipo de comunicação, nos auxilia em uma melhor compreensão:
+Linguagem Onipresente. Linguagem Onipresente é essencialmente os termos, palavras e definições
+utilizadas por todo o domínio do projeto.
+
+
+
+OQ QUER DIZER QUE TEM SER UMA TERMOS DE IGUAL PARA IGUAL
+VAMOS SUPOR DEVS TEM LINGUAGEM E OS GERENTES DE NEGOCIO OUTRA
+
+Linguagem Ubíqua É UNIÃO DOS DOIS
+
+TIPO CODE CHELLA TEM UM TIPO QUE SE CHAMA FORMATO DE INGRESSO MAS NA APLICAÇÃO FRONT E PARA NEGOCIO
+SE CHAMA SETORES
+UNIÃO DESTE DOIS TEM QUE SER MESMO PARA NEGOCIO E PARA OS DEVS
+
+Classes anêmicas--------------------------------
+
+
+SÃO CLASSES QUE SO TEM GET E SET, NÃO SÃO CLASSE DE DOMAIN MAS CLASSE ANEMICAS
+CLASSES DE DOMAIN SÃO CLASSES APLICA REGRA DE DOMINIO REGRAS DE NEGOCIOS, NORMALMENTE TEM SO GET
+
+REGRA DE NEGOCIO FICA NO DOMAIN
+
+EX:
+public void incluiNovoTipoIngressoAoEvento (TipoIngresso tipoIngresso){
+        this.tipoIngressos.add(tipoIngresso);
+    }
+
+DOMAIN------------------------------------------------------------------------------------
+SÃO CLASSE QUE REPRENSTA SEU SITE, POR EXEMPLO AQUI EVENTOS QUE RESPRENSTA O SITE DO CODECHELLA
+BOM SEMPRE BOM SEPARA POR TIPOS DO SEU SITE,
+TIPO EVENTO CLASS INGRESSO, E EVENTO
+
+
+Subdomínios e contextos delimitados------------------------------------------
+
+
+Tipos de subdomínios
+Temos três tipos de subdomínios:
+
+Subdomínio principal
+Subdomínio genérico
+Subdomínio de suporte
+
+Se a solução pode ser comprada e não arrisca o negócio, trata-se de um subdomínio genérico.
+Se a solução pode ser comprada mas arrisca o negócio, trata-se do subdomínio principal.
+Se a solução não pode ser comprada e sua lógica de negócio é complexa, trata-se também do subdomínio principal.
+Se a solução não pode ser comprada mas sua lógica de negócio não é complexa, trata-se do subdomínio de suporte.
+
+Separando as camadas por responsabilidade------------------------------------------------------------------------------------------------------------------------
+PRINCIPAIS DIFERENÇA DESTE TIPO DE CODIGO QUE O DOMINIO PODE CONHECER AS INFRAS
+AGORA COMO SEPARAR
+DOMINIO-------------------------------------------
+VAI FICAR SUAS PRINCIPAIS CLASS, MOTIVO DA CRIAÇÃO DA SUA APLICAÇÃO, POR EXEMPLO EVENTOS
+E VENDA DE INGRESSO E EVENTOS
+
+APLICAÇÃO---------------
+
+
+POR EXEMPLO VAMOS SE DIZER QUE APLICAÇÃO É ONDE COMEÇA FAZER PASSAR PELO MODAL ETC
+ONDE VAI DIRECIONAR FLUSO, INTERFACE DE USUARIO VAI CHAMAR, VAI CAIR EM APLICAÇÃO
+nessa parte vamos separa por tipos
+
+
+POR PADRÃO COLOCA CONTROLLER QUE FAZ LIGAÇÃO DO VIEW COM APLICAÇÃO É CONTROLLER ENTÃO
+POR PADRÃO COLOCA DENTRO CONTROLLER, E TBM OQ FAZ PARTE DOS CONTROLLER COM POR EXEMPLOS
+DTO, SERVICE
+
+
+INFRA-------------------------------------------------------
+
+
+FICA PARTE DE PERSISTENCIA A BANCO DE DADOS, PARTE DE LIGAÇÃO COM BANCO DE DADOS ETC
+TIPO ENTITY, REPOSITORY, DADOS PARA BANCO ETC
+
+CLASS, INTERFACE, ETC COMUM A TODOS FICA ONDE DEVE SEM UMA DELIMITAÇÃO, TIPO
+INGRESSO OU EVENTO, FICA NA PARTE QUE ELA VAI SER USADA POR EXEMPLO TRTADOR DE ERRO FICA NA APLICAÇÃO
+
+CRIANDO ENTIDADE DOMINIO--------------------------------------------------------------------------
+classs etidade, precisa ter um indetificador unico, cria um construtor,
+mas não construtor padrão, tem que ter um resquisto para vc criar essa nova entidade
+
+
+VALUE OBJECTS--------------------------------------------------------------------
+SÃO CLASSES QUE CONJUNTO DE ATRIBUTOS, FAZ SER INDENTIFICADOR UNICO DELA, E NÃO TEM MOTIVOS PARA
+EXISTIR SOZINHO, É UMA CLASS QUE VAI COMPLIMENTAR UMA ENTIDADE
+
+
+AGREGADOS----------------------------------------------------------------------
+QUANDO ENTIDADE AGREGADOS, -> NÃO TEM MOTIVOS PARA EXISTIR SOZINHO
+EVENTO-> TIPOINGRESSOS  -> NÃO TEM RAZÃO SEM EXISTIR UM INGRESSO SEM TER UM EVENTO, ENDERECO TBM OUTRO
+EXEMPLOS
+
+AGGREGATE ROOT-> PARA SE REFERIR A ORIGEM DO AGREGADOS
+SERVIÇOS E DOMINIO-------------------------------------------------------------
+cria um serviço, com caso precise para caso de, que precise de logica de negocios
+envolvido, mas podemos criar uma interface que pode ser implementada por terceiros
+mas importante ter uma interface ou algo que diz como tem que ser essa logica
+por exemplo a class envio de email de cumpom, como na useCase na arquitetura limpa
+essa class se cria no aplicação, junto com service de persistencia etc alguem tem implement
+de alguma forma , essa interface
+
+
+camada de anticurrupção---------------------------------------------------------
+uma camada que testa antes de chegar na parte de persitencia ou de controller
+que os dados estão indo tudo certo e esta tudo conforme pedido
+
+camada compartilhada------------------------------------------------
+vamos dizer que alem de venda de ingresso estão trabalhando tbm com parceria
+então resolve fazer isso fazer  essa aplicação que se vai compartilha infos ja criada
+como class domains as coisas ja feita ou vai repetir codigo criar tudo do zero novamente
+por que classe domain da class ingresso esta afetando uma info
+
+
+
+
+
+
+
+
+
+
+
+
+
+No Domain-Driven Design (DDD), existem vários blocos de construção que são fundamentais para criar modelos de domínio expressivos e eficazes. Aqui estão os principais blocos de construção do DDD:
+
+Entidades (Entities): Entidades são objetos distintos e identificáveis que possuem uma identidade única ao longo do tempo. Elas representam objetos do mundo real que têm uma vida própria e são geralmente modeladas como objetos persistentes no sistema.
+
+Value Objects: Value Objects são objetos que representam um valor simples ou conjunto de valores que são imutáveis e comparáveis pela totalidade de seus atributos. Eles são úteis para representar conceitos como datas, horários, coordenadas geográficas, entre outros, e são geralmente utilizados como atributos de Entidades.
+
+Agregados (Aggregates): Agregados são conjuntos de objetos relacionados que são tratados como uma única unidade de transação. Eles encapsulam a consistência e as regras de negócio dentro do domínio e garantem a integridade dos dados. Uma Entidade dentro de um Agregado é chamada de Raiz de Agregado (Aggregate Root).
+
+Fábricas (Factories): Fábricas são objetos responsáveis por criar e instanciar Entidades complexas ou Agregados. Elas encapsulam a lógica de criação de objetos complexos e podem ajudar a garantir a consistência do estado inicial desses objetos.
+
+
+
+
+
+
+
